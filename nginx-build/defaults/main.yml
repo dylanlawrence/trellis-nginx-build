@@ -1,0 +1,97 @@
+---
+#
+nginx_build_tmp_dir : "/tmp/nginx-build"
+#
+nginx_source_version: "1.13.0"
+
+nginx_user: www-data
+nginx_group: www-data
+nginx_uid: 33
+nginx_gid: 33
+
+nginx_dir: "/etc/nginx"
+nginx_www_dir: "/srv/www"
+nginx_log_dir: "/var/log/nginx"
+nginx_pid: "/var/run/nginx.pid"
+nginx_bin: "/usr/sbin/nginx"
+
+# source
+nginx_source_url: "http://nginx.org/download/nginx-{{nginx_source_version}}.tar.gz"
+nginx_source_prefix: "/usr/local/nginx/nginx-{{nginx_source_version}}"
+nginx_source_conf_path: "{{nginx_dir}}/nginx.conf"
+nginx_source_sbin_path: "{{nginx_source_prefix}}/sbin/nginx"
+nginx_source_default_flags: "--prefix={{nginx_source_prefix}} --conf-path={{nginx_source_conf_path}} --sbin-path={{nginx_source_sbin_path}}"
+
+nginx_modules:
+  http_stub_status_module: "--with-http_stub_status_module"
+  http_ssl_module: "--with-http_ssl_module"
+  openssl: "--with-openssl={{ nginx_build_tmp_dir }}/openssl-{{ openssl_version }}"
+  http_v2_module: "--with-http_v2_module"
+  http_gzip_static_module: "--with-http_gzip_static_module"
+  upload_progress_module: "--add-module={{ nginx_build_tmp_dir }}/nginx-upload-progress-module-{{nginx_upload_progress_version}}"
+  ipv6_module: "--with-ipv6"
+  google_perftools_module: "--with-google_perftools_module"
+  http_auth_request_module: "--with-http_auth_request_module"
+  headers_more_module: "--add-module={{ nginx_build_tmp_dir }}/headers-more-nginx-module-{{nginx_headers_more_version}}"
+  http_echo_module: "--add-module={{ nginx_build_tmp_dir }}/echo-nginx-module-{{nginx_echo_version}}"
+  http_real_ip_module: "--with-http_realip_module"
+  naxsi_module: "--add-module={{ nginx_build_tmp_dir }}/naxsi-{{nginx_naxsi_version}}/naxsi_src"
+  ngx_pagespeed: "--add-module={{ nginx_build_tmp_dir }}/ngx_pagespeed-{{nginx_ngx_pagespeed_version}}"
+  http_geoip_module: "--with-http_geoip_module"
+
+nginx_modules_excluded:
+  - mail_pop3_module
+  - mail_imap_module
+  - mail_smtp_module
+
+# ./configure this
+nginx_source_flags: "{{nginx_source_default_flags}}{% for key, value in nginx_modules.items() %} {{value}}{% endfor %}{% for item in nginx_modules_excluded %} --without-{{item}}{% endfor %}"
+
+
+##### Modules ######
+####################
+
+# geoip_module
+nginx_geoip: 'off'
+nginx_geoip_country: "{{nginx_dir}}/geoip/GeoIP.dat"
+nginx_geoip_city: "{{nginx_dir}}/geoip/GeoLiteCity.dat"
+
+# http_stub_status_module
+nginx_remote_ip_var: "remote_addr"
+nginx_authorized_ips:
+  - "127.0.0.1/32"
+
+# http_gzip_static_module
+nginx_gzip_static: "off"
+
+# upload_progress_module
+nginx_upload_progress_version: 0.9.2
+nginx_upload_progress_javascript_output: yes
+nginx_upload_progress_zone_name: "proxied"
+nginx_upload_progress_zone_size: "1m"
+nginx_upload_progress_url: "https://github.com/masterzen/nginx-upload-progress-module/archive/v{{nginx_upload_progress_version}}.tar.gz"
+
+# headers_more_module
+nginx_headers_more_version: 0.32
+nginx_headers_more_url: "https://github.com/openresty/headers-more-nginx-module/archive/v{{nginx_headers_more_version}}.tar.gz"
+
+# http_echo_module
+nginx_echo_version: 0.61
+nginx_echo_url: "https://github.com/openresty/echo-nginx-module/archive/v{{nginx_echo_version}}.tar.gz"
+
+## http_realip_module
+nginx_realip_header: "X-Forwarded-For"
+nginx_realip_addresses: ["127.0.0.1"]
+nginx_realip_real_ip_recursive: "off"
+
+# naxsi_module
+nginx_naxsi_version: 0.55.3
+nginx_naxsi_url: "https://github.com/nbs-system/naxsi/archive/{{nginx_naxsi_version}}.tar.gz"
+
+# ngx_pagespeed_module
+nginx_ngx_pagespeed_version: 1.12.34.2-stable
+nginx_ngx_pagespeed_source: "https://github.com/pagespeed/ngx_pagespeed/archive/v{{nginx_ngx_pagespeed_version}}.zip"
+nginx_ngx_pagespeed_psol_source: "https://dl.google.com/dl/page-speed/psol/{{nginx_ngx_pagespeed_version}}/stable/.tar.gz"
+
+# OpenSSL
+openssl_version: "1.1.0f"
