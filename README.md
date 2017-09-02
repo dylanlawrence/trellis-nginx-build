@@ -1,31 +1,43 @@
-Role Name
+trellis-nginx-build role
 =========
 
-A brief description of the role goes here.
+An extension for trellis to allow nginx to be built from source enabling additional nginx modules like .
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+This is made specific to `trellis` so it obviously requires a trellis install, along with some basic understanding of it's setup. 
+
+
+In your _requirements.yml_
+
+    ## Build Nginx from source
+    - name: trellis-nginx-build
+      src: dylanlawrence.trellis-nginx-build
+      version: 0.0.1
+
+TODO : New to this galaxy so not about ^ sure yet?
+_(pun intented)_
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+There are too many to list here, look in: 
+
+_defaults/main.yml_
+
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
 
-Example Playbook
+
+Playbook Changes to trellis
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+_server.yml_
+    - { role: nginx-build, tags: [nginx], when: nginx_install_type == 'source' }
+    - { role: nginx, tags: [nginx] }
 
 License
 -------
@@ -35,4 +47,6 @@ BSD
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Dylan Lawrence
+
+
