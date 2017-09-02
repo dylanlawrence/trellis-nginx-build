@@ -99,3 +99,12 @@ ENV/
 
 # mypy
 .mypy_cache/
+.idea/
+defaults/
+files/
+handlers/
+meta/
+tasks/
+templates/
+tests/
+vars/

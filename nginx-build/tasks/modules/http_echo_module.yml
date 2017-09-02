@@ -1,9 +1,0 @@
-# file: nginx-build/tasks/modules/http_echo_module.yml
-
-- name: Nginx Modules - Download the http_echo_module source
-  get_url:
-    url: "{{nginx_echo_url}}"
-    dest: "{{ nginx_build_tmp_dir }}/nginx-echo-module.tar.gz"
-
-- name: Nginx Modules - Unpack the http_echo_module source
-  command: tar -xvzf {{ nginx_build_tmp_dir }}/nginx-echo-module.tar.gz chdir={{ nginx_build_tmp_dir }} creates={{ nginx_build_tmp_dir }}/echo-nginx-module-{{nginx_echo_version}}

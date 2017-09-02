@@ -1,6 +1,0 @@
-# file: nginx-build/tasks/modules/google_perftools_module.yml
-
-- name: Nginx Modules - check libgoogle-perftools-dev package
-  apt:
-    pkg: libgoogle-perftools-dev
-    state: present
