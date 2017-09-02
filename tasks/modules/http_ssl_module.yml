@@ -1,0 +1,15 @@
+# file: nginx-build/tasks/modules/http_ssl_module.yml
+
+- name: get openssl source
+  shell: "wget https://www.openssl.org/source/openssl-{{ openssl_version }}.tar.gz"
+  args:
+    chdir: "{{ nginx_build_tmp_dir }}"
+    creates: "{{ nginx_build_tmp_dir }}/openssl-{{ openssl_version }}.tar.gz"
+  when: nginx_modules.openssl is defined
+
+- name: extract openssl source
+  command: "tar -xf {{ nginx_build_tmp_dir }}/openssl-{{ openssl_version }}.tar.gz"
+  args:
+    chdir: "{{ nginx_build_tmp_dir }}"
+    creates: "{{ nginx_build_tmp_dir }}/openssl-{{ openssl_version }}"
+  when: nginx_modules.openssl is defined

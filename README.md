@@ -22,6 +22,8 @@ In your _requirements.yml_
 TODO : New to this galaxy so not sure about ^ yet?
 _(pun intented)_
 
+Run `ansible-galaxy install -r requirements.yml` to install the new role.
+
 
 Role Variables
 --------------
@@ -38,6 +40,8 @@ Playbook Changes to trellis
 ----------------
 
 _server.yml_
+    
+    ... before nginx role ...
     - { role: nginx-build, tags: [nginx], when: nginx_install_type == 'source' }
     - { role: nginx, tags: [nginx] }
 

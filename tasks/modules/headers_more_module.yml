@@ -1,0 +1,10 @@
+# file: nginx/tasks/modules/headers_more_module.yml
+
+- name: Nginx Modules - Download the headers_more_module source
+  get_url:
+    url: "{{nginx_headers_more_url}}"
+    dest: "{{ nginx_build_tmp_dir }}/nginx-headers-more-module-{{nginx_headers_more_version}}.tar.gz"
+
+- name: Nginx Modules - Unpack the headers_more_module source
+  command: tar -xvzf {{ nginx_build_tmp_dir }}/nginx-headers-more-module-{{nginx_headers_more_version}}.tar.gz
+    chdir={{ nginx_build_tmp_dir }} creates={{ nginx_build_tmp_dir }}/headers-more-nginx-module-{{nginx_headers_more_version}}
