@@ -16,7 +16,7 @@ In your _requirements.yml_
       src: dylanlawrence.trellis-nginx-build
       version: 0.0.1
 
-TODO : New to this galaxy so not about ^ sure yet?
+TODO : New to this galaxy so not sure about ^ yet?
 _(pun intented)_
 
 Role Variables
