@@ -3,9 +3,9 @@
 ## If we can put this in /tmp we can delete nginx_build dir
 - name: Nginx - Setup flags compiled
   template:
-    src: .build.j2
+    src: manifest.j2
     dest: "/tmp/.build"
-  register: build
+  register: manifest
 
 - include: "build.yml"
-  when: nginx_install_type == 'source' && when: build.changed
+  when: manifest.changed
