@@ -1,10 +1,11 @@
 ---
 
+## If we can put this in /tmp we can delete nginx_build dir
 - name: Nginx - Setup flags compiled
   template:
-    src: .nginx_compilation_flags.j2
-    dest: "{{ nginx_build_tmp_dir }}/.nginx_compilation_flags"
-  register: nginx_flags
+    src: .build.j2
+    dest: "/tmp/.build"
+  register: build
 
 - include: "build.yml"
-  when: nginx_install_type == 'source' && when: nginx_flags.changed
+  when: nginx_install_type == 'source' && when: build.changed

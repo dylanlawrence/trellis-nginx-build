@@ -1,7 +1,7 @@
 galaxy_info:
   author: Dylan Lawrence
   description: Build nginx from source
-  company: Fizix
+  company: Visual Identity Group
   license: license (GPLv2, CC-BY, etc)
   min_ansible_version: 1.9
   platforms:

@@ -1,20 +1,19 @@
 ---
-#
-nginx_build_tmp_dir : "/tmp/nginx-build"
-#
-nginx_source_version: "1.13.0"
 
+# Put everything in one folder for cleanup
+nginx_build_tmp_dir : "/tmp/nginx-build"
+
+# system
 nginx_user: www-data
 nginx_group: www-data
-nginx_uid: 33
-nginx_gid: 33
-
 nginx_dir: "/etc/nginx"
 nginx_www_dir: "/srv/www"
 nginx_log_dir: "/var/log/nginx"
 nginx_pid: "/var/run/nginx.pid"
 nginx_bin: "/usr/sbin/nginx"
 
+# Latest source breaks, so we're stuck here at the moment
+nginx_source_version: "1.13.0"
 # source
 nginx_source_url: "http://nginx.org/download/nginx-{{nginx_source_version}}.tar.gz"
 nginx_source_prefix: "/usr/local/nginx/nginx-{{nginx_source_version}}"
@@ -46,7 +45,6 @@ nginx_modules_excluded:
 
 # ./configure this
 nginx_source_flags: "{{nginx_source_default_flags}}{% for key, value in nginx_modules.items() %} {{value}}{% endfor %}{% for item in nginx_modules_excluded %} --without-{{item}}{% endfor %}"
-
 
 ##### Modules ######
 ####################
