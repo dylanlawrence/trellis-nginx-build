@@ -8,7 +8,6 @@ Requirements
 
 This is made specific to `trellis` so it obviously requires a trellis install, along with some basic understanding of it's setup. 
 
-
 In your _requirements.yml_
 
     ## Build Nginx from source
@@ -21,9 +20,11 @@ Run `ansible-galaxy install -r requirements.yml` to install the new role.
 Role Variables
 --------------
 
-There are too many to list here, look in: _defaults/main.yml_
+There are too many to list here, look in: 
 
-_TODO: Make variables accessable from group_vars_
+_defaults/main.yml_
+
+ - TODO: Are variables accessible from group_vars?
 
 
 Trellis Variables
