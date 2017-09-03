@@ -62,6 +62,8 @@ _trellis/nginx-includes/[yoursite.com]/pagespeed.conf.j2_
     pagespeed FileCachePath /var/ngx_pagespeed_cache;
     pagespeed EnableFilters lazyload_images;
 
+More about [nginx-includes](https://roots.io/trellis/docs/nginx-includes/).
+
 
 Dependencies
 ------------
