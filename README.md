@@ -1,7 +1,4 @@
-
-NOT WORKING YET - In hopes of lifting this `galaxy role` idea I have a started this process by moving the code over that I have working in a folder in a trellis env. 
-
-trellis-nginx-build role
+trellis-nginx-build
 =========
 
 An extension for trellis to allow nginx to be built from source enabling additional nginx modules like.
@@ -17,29 +14,35 @@ In your _requirements.yml_
     ## Build Nginx from source
     - name: trellis-nginx-build
       src: dylanlawrence.trellis-nginx-build
-      version: 0.0.1
-
-TODO : New to this galaxy so not sure about ^ yet?
-_(pun intented)_
+      version: 1.0.0
 
 Run `ansible-galaxy install -r requirements.yml` to install the new role.
-
 
 Role Variables
 --------------
 
-There are too many to list here, look in: 
+There are too many to list here, look in: _defaults/main.yml_
 
-_defaults/main.yml_
+_TODO: Make variables accessable from group_vars_
 
-Also required a way to turn off the standard package install part of the trellis nginx role.
 
-I went with `nginx_install_type=source` in the _all/main.yml_ which also works to omit it from the roles as shown below. 
+Trellis Variables
+--------------
 
-Playbook Changes to trellis
+A few changes need to happen in trellis files
+
+
+
+####_trellis/group_vars/*/main.yml_ 
+Put `nginx_install_type=source` or `package` which also works to omit it from the roles as shown below. 
+
+####_trellis/roles/nginx/tasks/main.yml_
+To avoid installing from package put `when: nginx_install_type == 'package'` on both `- name: Add Nginx PPA` and `- name: Install Nginx`
+
+Playbook
 ----------------
 
-_server.yml_
+####_trellis/server.yml_
     
     ... before nginx role ...
     - { role: trellis-nginx-build, tags: [nginx], when: nginx_install_type == 'source' }
