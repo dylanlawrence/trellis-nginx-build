@@ -1,4 +1,6 @@
+
 ---
+
 - name: restart_nginx
   service:
     name: nginx
