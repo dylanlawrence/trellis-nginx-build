@@ -17,7 +17,7 @@ In your _requirements.yml_
     ## Build Nginx from source
     - name: trellis-nginx-build
       src: dylanlawrence.trellis-nginx-build
-      version: 0.0.1
+      version: 0.1.0
 
 TODO : New to this galaxy so not sure about ^ yet?
 _(pun intented)_
