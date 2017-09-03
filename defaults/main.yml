@@ -1,7 +1,8 @@
 ---
 #
 nginx_build_tmp_dir : "/tmp/nginx-build"
-#
+
+# Latest build of nginx errors
 nginx_source_version: "1.13.0"
 
 nginx_user: www-data
@@ -39,29 +40,27 @@ nginx_modules:
   ngx_pagespeed: "--add-module={{ nginx_build_tmp_dir }}/ngx_pagespeed-{{nginx_ngx_pagespeed_version}}"
   http_geoip_module: "--with-http_geoip_module"
 
-nginx_modules_excluded:
+nginx_source_modules_excluded:
   - mail_pop3_module
   - mail_imap_module
   - mail_smtp_module
 
 # ./configure this
-nginx_source_flags: "{{nginx_source_default_flags}}{% for key, value in nginx_modules.items() %} {{value}}{% endfor %}{% for item in nginx_modules_excluded %} --without-{{item}}{% endfor %}"
-
+nginx_source_flags: "{{nginx_source_default_flags}}{% for key, value in nginx_modules.items() %} {{value}}{% endfor %}{% for item in nginx_source_modules_excluded %} --without-{{item}}{% endfor %}"
 
 ##### Modules ######
-####################
 
 # geoip_module
 nginx_geoip: 'off'
 nginx_geoip_country: "{{nginx_dir}}/geoip/GeoIP.dat"
 nginx_geoip_city: "{{nginx_dir}}/geoip/GeoLiteCity.dat"
 
-# http_stub_status_module
+# http_stub_status_module configuration
 nginx_remote_ip_var: "remote_addr"
 nginx_authorized_ips:
   - "127.0.0.1/32"
 
-# http_gzip_static_module
+# http_gzip_static_module configuration
 nginx_gzip_static: "off"
 
 # upload_progress_module
@@ -75,23 +74,34 @@ nginx_upload_progress_url: "https://github.com/masterzen/nginx-upload-progress-m
 nginx_headers_more_version: 0.32
 nginx_headers_more_url: "https://github.com/openresty/headers-more-nginx-module/archive/v{{nginx_headers_more_version}}.tar.gz"
 
+
+# http_auth_request_module
+  # http_auth_request_module: "--add-module={{ nginx_build_tmp_dir }}/ngx_http_auth_request_module-{{nginx_auth_request_release}}"
+#nginx_auth_request_release: "662785733552"
+#nginx_auth_request_url: "http://mdounin.ru/hg/ngx_http_auth_request_module/archive/{{nginx_auth_request_release}}.tar.gz"
+
+
 # http_echo_module
 nginx_echo_version: 0.61
 nginx_echo_url: "https://github.com/openresty/echo-nginx-module/archive/v{{nginx_echo_version}}.tar.gz"
+
 
 ## http_realip_module
 nginx_realip_header: "X-Forwarded-For"
 nginx_realip_addresses: ["127.0.0.1"]
 nginx_realip_real_ip_recursive: "off"
 
+
 # naxsi_module
 nginx_naxsi_version: 0.55.3
 nginx_naxsi_url: "https://github.com/nbs-system/naxsi/archive/{{nginx_naxsi_version}}.tar.gz"
 
-# ngx_pagespeed_module
+
+# ngx_pagespeed_module -
 nginx_ngx_pagespeed_version: 1.12.34.2-stable
 nginx_ngx_pagespeed_source: "https://github.com/pagespeed/ngx_pagespeed/archive/v{{nginx_ngx_pagespeed_version}}.zip"
 nginx_ngx_pagespeed_psol_source: "https://dl.google.com/dl/page-speed/psol/{{nginx_ngx_pagespeed_version}}/stable/.tar.gz"
+
 
 # OpenSSL
 openssl_version: "1.1.0f"
