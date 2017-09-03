@@ -51,10 +51,23 @@ _trellis/server.yml_
     - { role: nginx, tags: [nginx] }
 
 
+Nginx Includes | Wordpress Sites *.conf
+--------------------
+
+If you add a directory like (below) with any named file like *.conf.j2
+you can add you module specific configs for example:
+
+_trellis/nginx-includes/[yoursite.com]/pagespeed.conf.j2_
+
+    pagespeed on;
+    pagespeed FileCachePath /var/ngx_pagespeed_cache;
+    pagespeed EnableFilters lazyload_images;
+
+
 Dependencies
 ------------
 
-N/A
+xenial only so far
 
 License
 -------
