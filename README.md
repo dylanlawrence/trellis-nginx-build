@@ -33,16 +33,18 @@ A few changes need to happen in trellis files
 
 
 
-####_trellis/group_vars/*/main.yml_ 
+_trellis/group_vars/*/main.yml_
+
 Put `nginx_install_type=source` or `package` which also works to omit it from the roles as shown below. 
 
-####_trellis/roles/nginx/tasks/main.yml_
+_trellis/roles/nginx/tasks/main.yml_
+
 To avoid installing from package put `when: nginx_install_type == 'package'` on both `- name: Add Nginx PPA` and `- name: Install Nginx`
 
 Playbook
 ----------------
 
-####_trellis/server.yml_
+_trellis/server.yml_
     
     ... before nginx role ...
     - { role: trellis-nginx-build, tags: [nginx], when: nginx_install_type == 'source' }
