@@ -1,11 +1,12 @@
 ---
 
-## If we can put this in /tmp we can delete nginx_build dir
-- name: Nginx - Setup flags compiled
+# We can set this file in tmp to represent the build vars.
+# Also if we put this in /tmp we can still delete /tmp/nginx_build dir for cleanup
+- name: Nginx - Set compilation manifest
   template:
     src: manifest.j2
-    dest: "/tmp/.build"
+    dest: "/tmp/.trellis_nginx_build"
   register: manifest
-
+# if nothing changes we should not recompile
 - include: "build.yml"
   when: manifest.changed

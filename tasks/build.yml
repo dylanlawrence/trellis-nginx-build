@@ -53,6 +53,7 @@
 
 - name: Nginx - Create Init Scripts (LSB /etc/init.d/nginx & /etc/default/nginx)
   command: sudo make
+  become: yes
   args:
     chdir: "{{ nginx_build_tmp_dir }}/nginx-sysvinit-script"
 

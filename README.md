@@ -42,7 +42,7 @@ Playbook Changes to trellis
 _server.yml_
     
     ... before nginx role ...
-    - { role: nginx-build, tags: [nginx], when: nginx_install_type == 'source' }
+    - { role: trellis-nginx-build, tags: [nginx], when: nginx_install_type == 'source' }
     - { role: nginx, tags: [nginx] }
 
 
