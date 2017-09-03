@@ -31,8 +31,6 @@ Trellis Variables
 
 A few changes need to happen in trellis files
 
-
-
 _trellis/group_vars/*/main.yml_
 
 Put `nginx_install_type=source` or `package` which also works to omit it from the roles as shown below. 
@@ -55,7 +53,7 @@ Nginx Includes | Wordpress Sites *.conf
 --------------------
 
 If you add a directory like (below) with any named file like *.conf.j2
-you can add you module specific configs for example:
+you can add module specific config. 
 
 _trellis/nginx-includes/[yoursite.com]/pagespeed.conf.j2_
 
