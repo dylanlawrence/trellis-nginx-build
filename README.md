@@ -66,7 +66,7 @@ _trellis/nginx-includes/[yoursite.com]/pagespeed.conf.j2_
 Dependencies
 ------------
 
-xenial only so far
+N/A
 
 License
 -------
